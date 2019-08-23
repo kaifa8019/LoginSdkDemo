@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
         //请求权限
         ActivityCompat.requestPermissions(this, PERMISSIONS, 0x11);
 
-
         //注意在未登录情况下才去初始化一键登录SDK，避免频繁预取号
         if (!isLogin) {
             YuYanOneKeyLoginSDK.init(this, "申请的appid", new SDKInitResultCallback() {
@@ -231,6 +230,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        //及时释放资源
         if (mOneKeyLogin != null) {
             mOneKeyLogin.onDestroy();
         }
