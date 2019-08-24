@@ -16,6 +16,10 @@ import com.admobile.onekeylogin.support.callback.OnTokenResultCallback;
 import com.admobile.onekeylogin.support.callback.SDKInitResultCallback;
 import com.admobile.onekeylogin.support.ui.AuthCustomViewConfig;
 
+/**
+ * 注意 若要运行Demo,需要填入申请的appid,需要将build.gradle中的
+ * applicationId换成申请的包名，以及使用申请应用的签名运行
+ */
 public class MainActivity extends AppCompatActivity {
     private final String[] PERMISSIONS = {Manifest.permission.READ_PHONE_STATE};
     private YuYanOneKeyLogin mOneKeyLogin;
@@ -168,6 +172,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private void oneKeyLogin() {
         if (!isLoginInitSuccess) {
+            //使用其他登录方式
             return;
         }
         View addView = LayoutInflater.from(this).inflate(R.layout.include_layout_login, null);
