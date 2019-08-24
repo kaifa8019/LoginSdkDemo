@@ -321,6 +321,7 @@ public class YuYanOneKeyLogin {
 -keep class android.support.v4.** { *;}
 -keep class org.json.**{*;}
 -keep class com.alibaba.fastjson.** {*;}
+-keep class com.ciba.**{ *; }
 ```
 
 #### 2.7 常见错误码
