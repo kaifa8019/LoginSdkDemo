@@ -1,6 +1,7 @@
 package com.ecook.loginsdkdemo;
 
 import android.Manifest;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
@@ -16,6 +17,7 @@ import com.admobile.onekeylogin.support.YuYanOneKeyLoginSDK;
 import com.admobile.onekeylogin.support.callback.OnTokenResultCallback;
 import com.admobile.onekeylogin.support.callback.SDKInitResultCallback;
 import com.admobile.onekeylogin.support.ui.AuthCustomViewConfig;
+import com.admobile.onekeylogin.support.ui.AuthPageUiConfig;
 
 /**
  * 注意 若要运行Demo,需要填入申请的appid,需要将build.gradle中的
@@ -118,12 +120,6 @@ public class MainActivity extends AppCompatActivity {
 //                //登录按钮距离底部位移
 //                .setLogBtnOffsetY_B(400)
 //                /*--------切换到其他方式-------*/
-//                //设置按钮点击事件
-//                .setSwitchClicker(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                    }
-//                })
 //                //设置按钮是否可见
 //                .setSwitchAccHidden(false)
 //                //设置文字内容
@@ -206,7 +202,6 @@ public class MainActivity extends AppCompatActivity {
         mOneKeyLogin.getLoginToken(5000, new OnTokenResultCallback() {
             @Override
             public void onShowAuthPageSuccess() {
-                //注：中国移动在授权页展示时不会回调
                 LogUtils.d(TAG, "onShowAuthPageSuccess");
             }
 

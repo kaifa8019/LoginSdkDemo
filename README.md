@@ -383,14 +383,6 @@ public void setAuthUIConfig(AuthPageUiConfig config)
     /**********************⑥ 切换按钮*******************************/
 
     /**
-     * 设置切换按钮的点击事件
-     *
-     * @param listener
-     * @return
-     */
-    public AuthPageUiConfig setSwitchClicker(View.OnClickListener listener)
-
-    /**
      * 设置切换按钮是否可见
      *
      * @param isHidden
@@ -468,22 +460,6 @@ public void setAuthUIConfig(AuthPageUiConfig config)
      * @return
      */
     public AuthPageUiConfig setAppPrivacyColor(int normalTextColor, int protocolColor)
-
-    /**
-     * 第一个隐私协议文字颜色
-     *
-     * @param color
-     * @return
-     */
-    public AuthPageUiConfig setProtocolOneColor(int color)
-
-    /**
-     * 第二个隐私协议文字颜色
-     *
-     * @param color
-     * @return
-     */
-    public AuthPageUiConfig setProtocolTwoColor(int color)
 
     /**
      * 隐私协议基础文字颜色
