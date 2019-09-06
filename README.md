@@ -638,14 +638,14 @@ public class YuYanOneKeyLogin {
 }
 ```
 
-### 3. 手机号码验证
+### 3. 本机号码验证功能
 
 #### 3.1 SDK初始化
 
 建议在Activity或者Fragment的onCreate中初始化
 
 ```java
-YuYanOneKeyLoginSDK.initMobileAuth(this, "1000001", new MobileAuthSDKInitResultCallback() {
+YuYanOneKeyLoginSDK.initMobileAuth(this, "申请的appid", new MobileAuthSDKInitResultCallback() {
             @Override
             public void onSuccess(YuYanMobileAuth mobileAuth) {
                //初始化成功
