@@ -1,7 +1,9 @@
 package com.ecook.loginsdkdemo;
 
 import android.Manifest;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -15,7 +17,12 @@ import com.admobile.onekeylogin.support.YuYanOneKeyLoginSDK;
 import com.admobile.onekeylogin.support.callback.OnTokenResultCallback;
 import com.admobile.onekeylogin.support.callback.SDKInitResultCallback;
 import com.admobile.onekeylogin.support.ui.AuthCustomViewConfig;
+import com.admobile.onekeylogin.support.ui.AuthPageUiConfig;
 
+/**
+ * 注意 若要运行Demo,需要填入申请的appid,需要将build.gradle中的
+ * applicationId换成申请的包名，以及使用申请应用的签名运行
+ */
 public class MainActivity extends AppCompatActivity {
     private final String[] PERMISSIONS = {Manifest.permission.READ_PHONE_STATE};
     private YuYanOneKeyLogin mOneKeyLogin;
@@ -33,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
 
         //请求权限
         ActivityCompat.requestPermissions(this, PERMISSIONS, 0x11);
-
 
         //注意在未登录情况下才去初始化一键登录SDK，避免频繁预取号
         if (!isLogin) {
@@ -114,12 +120,6 @@ public class MainActivity extends AppCompatActivity {
 //                //登录按钮距离底部位移
 //                .setLogBtnOffsetY_B(400)
 //                /*--------切换到其他方式-------*/
-//                //设置按钮点击事件
-//                .setSwitchClicker(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                    }
-//                })
 //                //设置按钮是否可见
 //                .setSwitchAccHidden(false)
 //                //设置文字内容
@@ -169,6 +169,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private void oneKeyLogin() {
         if (!isLoginInitSuccess) {
+            //使用其他登录方式
             return;
         }
         View addView = LayoutInflater.from(this).inflate(R.layout.include_layout_login, null);
@@ -201,7 +202,6 @@ public class MainActivity extends AppCompatActivity {
         mOneKeyLogin.getLoginToken(5000, new OnTokenResultCallback() {
             @Override
             public void onShowAuthPageSuccess() {
-                //注：中国移动在授权页展示时不会回调
                 LogUtils.d(TAG, "onShowAuthPageSuccess");
             }
 
@@ -231,6 +231,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        //及时释放资源
         if (mOneKeyLogin != null) {
             mOneKeyLogin.onDestroy();
         }

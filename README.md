@@ -1,5 +1,5 @@
 * [1. SDK接入流程](#1-sdk接入流程)
-  * [1.1 权限申请](#11-添加SDK至项目)
+  * [1.1 添加SDK至项目](#11-添加SDK至项目)
   * [1.2 权限申请](#12-权限申请)
 * [2. SDK使用](#2-sdk使用)
   * [2.1 SDK初始化](#21-sdk初始化)
@@ -12,6 +12,7 @@
 
 
 
+
 体验Demo下载
 
 ![一键登录](https://www.pgyer.com/app/qrcode/Edhb)
@@ -20,12 +21,13 @@
 
 - <font color="#ff0000">使用一键登录需要用户打开蜂窝数据网络</font>
 - <font color="#ff0000">取号认证过程需要消耗少量用户数据流量</font>
+- <font color="#ff0000">OPPO手机用户首次使用一键登录时需要手动切换到移动数据网络，授予接入方APP访问移动数据网络权（OPPO手机操作系统存在移动数据网络权限，在WIFI和数据网络同时打开时，应用首次打开默认使用WIFI数据通道，且无法通过SDK强制切换到数据网络取号，最终导致取号失败。）</font>
 
 
 
 ### 1. SDK接入流程
 
-####1.1 添加SDK至项目
+#### 1.1 添加SDK至项目
 
 接入环境： AndroidStudio
 
@@ -55,7 +57,7 @@ dependencies {
 
 ```
 
-<font color="#ff0000"> 注意事项： 在同时接入一键登录和[艾狄墨搏广告SDK](http://101.37.118.54/dokuwiki/doku.php?id=admobgensdk)时，若发生依赖冲突，可移除common-release.aar这个库依赖(广告SDK必须升级至最新版)。</font>
+<font color="#ff0000"> 注意事项： 在同时接入一键登录和[艾狄墨搏广告SDK](http://101.37.118.54/dokuwiki/doku.php?id=admobgensdk)时，若发生依赖冲突，可移除common-release.aar这个库依赖(广告SDK必须升级至v2.3.12版本及以上)。</font>
 
 #### 1.2 权限申请
 
@@ -117,105 +119,418 @@ mOneKeyLogin.getLoginToken(5000, new OnTokenResultCallback() {
 
 #### 2.3 自定义授权界面的UI属性
 
+
+
+![img01](./img/img01.jpg)
+
+
+
+方法
+
 ```java
-mOneKeyLogin.setAuthUIConfig(new AuthPageUiConfig()
-                             /*--------导航栏-------*/
-                             //导航栏主题色
-                             .setNavColor(Color.BLUE)
-                             //导航栏文字标题
-                             .setNavText("导航栏标题")
-                             //导航栏文字颜色
-                             .setNavTextColor(Color.RED)
-                             //导航栏字体大小(sp)
-                             .setNavTextSize(20)
-                             //导航栏返回键图片(drawable目录下)
-                             .setNavReturnImgPath("ic_launcher")
-                             /*--------slogan-------*/
-                             //slogan文字内容
-                             .setSloganText("标语内容")
-                             //slogan文字颜色
-                             .setSloganTextColor(Color.GREEN)
-                             //slogan文字大小(sp)
-                             .setSloganTextSize(20)
-                             //slogan相对于导航栏的位移(dp)
-                             .setSloganOffsetY(200)
-                             //slogan相对于底部的位移(dp)
-                             .setSloganOffsetY_B(240)
-                             /*--------logo-------*/
-                             //logo图片(drawable)
-                             .setLogoImgPath("ic_launcher")
-                             //logo图片显隐藏
-                             .setLogoHidden(false)
-                             // logo 图片宽度(dp)
-                             .setLogoWidth(50)
-                             // logo图片高度(dp)
-                             .setLogoHeight(50)
-                             //logo距离顶部导航栏的距离(dp)
-                             .setLogoOffsetY(100)
-                             //logo距离底部距离(dp)
-                             .setLogoOffsetY_B(500)
-                             /*--------掩码栏-------*/
-                             //掩码字体颜色
-                             .setNumberColor(Color.BLUE)
-                             //掩码字体大小(sp)
-                             .setNumberSize(35)
-                             //掩码距离顶部导航栏的位移(dp)
-                             .setNumFieldOffsetY(220)
-                             //掩码距离底部的位移(dp)
-                             .setNumFieldOffsetY_B(100)
-                             /*--------登录按钮-------*/
-                             .setLogBtnText("登录按钮文字")
-                             //登录按钮字体颜色
-                             .setLogBtnTextColor(Color.WHITE)
-                             //登录按钮背景图片路径
-                             .setLogBtnBackgroundPath("shape_bg")
-                             //登录按钮距离顶部位移
-                             .setLogBtnOffsetY(300)
-                             //登录按钮距离底部位移
-                             .setLogBtnOffsetY_B(400)
-                             /*--------切换到其他方式-------*/
-                             //设置按钮点击事件
-                             .setSwitchClicker(new View.OnClickListener() {
-                                 @Override
-                                 public void onClick(View v) {
-                                 }
-                             })
-                             //设置按钮是否可见
-                             .setSwitchAccHidden(false)
-                             //设置文字内容
-                             .setSwitchAccText("切换到其他登录方式 内容")
-                             //设置文字颜色
-                             .setSwitchAccTextColor(Color.BLUE)
-                             //设置按钮文字大小
-                             .setSwitchAccTextSize(22)
-                             //设置按钮距离顶部位移
-                             .setSwitchOffsetY(400)
-                             //设置按钮距离底部位移
-                             .setSwitchOffsetY_B(300)
-                             /*--------协议栏-------*/
-                             //第一条隐私协议
-                             .setAppPrivacyOne("第一条隐私协议", "https://www.aliyun.com/ss/?k=%E4%B8%80%E9%94%AE%E7%99%BB%E5%BD%95SDK")
-                             //第二条隐私协议
-                             .setAppPrivacyTwo("第二条隐私协议", "https://github.com/sucese/android-open-framework-analysis")
-                             //基础文字颜色，隐私协议的颜色
-                             .setAppPrivacyColor(Color.BLUE, Color.RED)
-                             //设置隐私条款相对于顶部的位移
-                             .setPrivacyOffsetY(500)
-                             //设置隐私条款相对于底部的位移
-                             .setPrivacyOffsetY_B(200)
-                             //隐私条款勾选状态
-                             .setPrivacyState(true)
-                             //复选框隐藏状态
-                             .setCheckboxHidden(false)
-                             //复选框选中状态的图片路径
-                .setCheckedImgPath("shape_bg")
-                //复选框未选中状态的图片路径
-                .setUncheckedImgPath("ic_launcher"));
+/**
+ * 一键登录授权页面配置
+ *
+ * @param authUIConfig 布局配置
+ */
+public void setAuthUIConfig(AuthPageUiConfig config)
+
+```
+
+```java
+/**********************①导航栏*******************************/
+    /**
+     * 导航栏主题颜色
+     *
+     * @param navColor
+     * @return
+     */
+    public AuthPageUiConfig setNavColor(int navColor)
+
+    /**
+     * 导航栏标题文字内容
+     *
+     * @param navText
+     * @return
+     */
+    public AuthPageUiConfig setNavText(String navText)
+
+    /**
+     * 导航栏标题文字大小 sp
+     *
+     * @param navTextSize
+     * @return
+     */
+    public AuthPageUiConfig setNavTextSize(int navTextSize)
+
+
+    /**
+     * 导航栏标题文字颜色
+     *
+     * @param navTextColor
+     * @return
+     */
+    public AuthPageUiConfig setNavTextColor(int navTextColor)
+
+    /**
+     * 导航栏返回键图片缩放类型
+     *
+     * @param navReturnScaleType
+     * @return
+     */
+    public AuthPageUiConfig setNavReturnScaleType(ImageView.ScaleType navReturnScaleType)
+
+    /**
+     * 导航栏返回键图片路径
+     *
+     * @param path drawable下的图片
+     * @return
+     */
+    public AuthPageUiConfig setNavReturnImgPath(String path)
+
+
+    /**********************②logo区*******************************/
+
+    /**
+     * logo图片路径
+     *
+     * @param path drawable下的图片，例如 ic_launcher
+     * @return
+     */
+    public AuthPageUiConfig setLogoImgPath(String path)
+
+    /**
+     * logo是否隐藏
+     *
+     * @param isHidden
+     * @return
+     */
+    public AuthPageUiConfig setLogoHidden(boolean isHidden)
+
+    /**
+     * logo宽度
+     *
+     * @param width 宽度(dp)
+     * @return
+     */
+    public AuthPageUiConfig setLogoWidth(int width)
+
+
+    /**
+     * logo高度
+     *
+     * @param height 高度(dp)
+     * @return
+     */
+    public AuthPageUiConfig setLogoHeight(int height)
+
+    /**
+     * logo相对于导航栏顶部的位移
+     *
+     * @param offsetY
+     * @return
+     */
+    public AuthPageUiConfig setLogoOffsetY(int offsetY)
+
+    /**
+     * logo相对于底部的位移
+     *
+     * @param offsetY
+     * @return
+     */
+    public AuthPageUiConfig setLogoOffsetY_B(int offsetY)
+
+
+
+
+
+    /**********************③掩码栏*******************************/
+
+    /**
+     * 设置掩码字体颜色
+     *
+     * @return
+     */
+    public AuthPageUiConfig setNumberColor(int color)
+
+    /**
+     * 设置掩码字体大小
+     *
+     * @return sp
+     */
+    public AuthPageUiConfig setNumberSize(int textSize)
+
+
+    /**
+     * 设置掩码控件相对于导航栏顶部的位移
+     *
+     * @return sp
+     */
+    public AuthPageUiConfig setNumFieldOffsetY(int offsetY)
+
+
+    /**
+     * 设置掩码控件相对于底部的位移
+     *
+     * @return sp
+     */
+    public AuthPageUiConfig setNumFieldOffsetY_B(int offsetY)
+
+
+    /**********************④slogan*******************************/
+
+    /**
+     * slogan文字内容
+     *
+     * @param text
+     * @return
+     */
+    public AuthPageUiConfig setSloganText(String text)
+
+    /**
+     * slogan文字颜色
+     *
+     * @param color
+     * @return
+     */
+    public AuthPageUiConfig setSloganTextColor(int color)
+
+    /**
+     * slogan文字大小
+     *
+     * @param textSize (sp)
+     * @return
+     */
+    public AuthPageUiConfig setSloganTextSize(int textSize)
+
+    /**
+     * slogan相对于导航栏顶部的位移
+     *
+     * @param offsetY (dp)
+     * @return
+     */
+    public AuthPageUiConfig setSloganOffsetY(int offsetY)
+
+    /**
+     * slogan相对于底部的位移
+     *
+     * @param offsetY_B (dp)
+     * @return
+     */
+    public AuthPageUiConfig setSloganOffsetY_B(int offsetY_B)
+
+    /**
+     * slogan 隐藏
+     *
+     * @param isHidden
+     * @return
+     */
+    public AuthPageUiConfig setSloganHidden(boolean isHidden)
+
+
+    /**********************⑤登录按钮*******************************/
+
+    /**
+     * 设置登录按钮文字内容(文字必须包含登录或者注册字眼)
+     *
+     * @param text
+     * @return
+     */
+    public AuthPageUiConfig setLogBtnText(String text)
+
+    /**
+     * 设置登录按钮文字颜色
+     *
+     * @param textColor
+     * @return
+     */
+    public AuthPageUiConfig setLogBtnTextColor(int textColor)
+
+    /**
+     * 设置登录按钮文字大小
+     *
+     * @param textSize sp
+     * @return
+     */
+    public AuthPageUiConfig setLogBtnTextSize(int textSize)
+
+
+    /**
+     * 设置登录按钮背景图路径 (drawable目录下)
+     *
+     * @param path
+     * @return
+     */
+    public AuthPageUiConfig setLogBtnBackgroundPath(String path)
+
+    /**
+     * 设置登录按钮具体顶部的位移 dp
+     *
+     * @param offsetY
+     * @return
+     */
+    public AuthPageUiConfig setLogBtnOffsetY(int offsetY)
+
+    /**
+     * 设置登录按钮距离底部的位移 dp
+     *
+     * @param offsetY
+     * @return
+     */
+    public AuthPageUiConfig setLogBtnOffsetY_B(int offsetY)
+
+
+    /**********************⑥ 切换按钮*******************************/
+
+    /**
+     * 设置切换按钮是否可见
+     *
+     * @param isHidden
+     * @return
+     */
+    public AuthPageUiConfig setSwitchAccHidden(boolean isHidden)
+
+
+    /**
+     * 设置切换按钮文字大小 sp
+     *
+     * @param textSize
+     * @return
+     */
+    public AuthPageUiConfig setSwitchAccTextSize(int textSize)
+
+
+    /**
+     * 设置切换按钮文字
+     *
+     * @param text
+     * @return
+     */
+    public AuthPageUiConfig setSwitchAccText(String text)
+
+    /**
+     * 设置切换按钮文字颜色
+     *
+     * @param color
+     * @return
+     */
+    public AuthPageUiConfig setSwitchAccTextColor(int color)
+
+    /**
+     * 设置切换按钮距离顶部的位移 dp
+     *
+     * @param offsetY
+     * @return
+     */
+    public AuthPageUiConfig setSwitchOffsetY(int offsetY)
+
+    /**
+     * 设置切换按钮距离底部的位移 dp
+     *
+     * @param offsetY
+     * @return
+     */
+    public AuthPageUiConfig setSwitchOffsetY_B(int offsetY)
+
+
+    /**********************⑧协议栏*******************************/
+    /**
+     * 自定义第一条隐私协议
+     *
+     * @param name 协议名
+     * @param url  链接
+     * @return
+     */
+    public AuthPageUiConfig setAppPrivacyOne(String name, String url)
+
+    /**
+     * 自定义第二条隐私协议
+     *
+     * @param name 协议名
+     * @param url  链接
+     * @return
+     */
+    public AuthPageUiConfig setAppPrivacyTwo(String name, String url)
+
+    /**
+     * 设置隐私条款文字颜色
+     *
+     * @param normalTextColor 基础文字颜色
+     * @param protocolColor   协议文字颜色
+     * @return
+     */
+    public AuthPageUiConfig setAppPrivacyColor(int normalTextColor, int protocolColor)
+
+    /**
+     * 隐私协议基础文字颜色
+     *
+     * @param color
+     * @return
+     */
+    public AuthPageUiConfig setProtocolColor(int color)
+
+
+    /**
+     * 设置隐私条款距离顶部的位移 dp
+     *
+     * @param offsetY
+     * @return
+     */
+    public AuthPageUiConfig setPrivacyOffsetY(int offsetY)
+
+    /**
+     * 设置隐私条款距离底部的位移 dp
+     *
+     * @param offsetY
+     * @return
+     */
+    public AuthPageUiConfig setPrivacyOffsetY_B(int offsetY)
+
+    /**
+     * 隐私协议是否默认勾选
+     *
+     * @param isCheck
+     * @return
+     */
+    public AuthPageUiConfig setPrivacyState(boolean isCheck)
+
+    /**
+     * 隐私协议复选框是否隐藏
+     *
+     * @param isHidden
+     * @return
+     */
+    public AuthPageUiConfig setCheckboxHidden(boolean isHidden)
+
+    /**
+     * 设置复选框未选中时的图片
+     *
+     * @param path
+     * @return
+     */
+    public AuthPageUiConfig setUncheckedImgPath(String path)
+
+
+    /**
+     * 设置复选框选中时的图片
+     *
+     * @param path
+     * @return
+     */
+    public AuthPageUiConfig setCheckedImgPath(String path)
+
+    /**
+     * 设置协议的位置
+     *
+     * @param gravity
+     * @return
+     */
+    public AuthPageUiConfig setProtocolGravity(int gravity)
 ```
 
 #### 2.4 添加自定义登录方式
 
-每次调用**getLoginToken**请求之前，都需重新设置**AuthCustomViewConfig**，因为在授权页关闭时都会清空注入进去的 **AuthCustomViewConfig** ，具体实现请见 **demo** 工 程 
+上图中区域⑦为自定义控件区，在该区域添加自定义控件。在调用**getLoginToken**请求之前，都需重新设置**AuthCustomViewConfig**，因为在授权页关闭时都会清空注入进去的 **AuthCustomViewConfig** ，具体实现请见 **demo** 工 程 
 
 ```java
 mOneKeyLogin.addAuthCustomViewConfig("loginTypeView", /* 自定义控件名称*/
@@ -320,6 +635,7 @@ public class YuYanOneKeyLogin {
 -keep class android.support.v4.** { *;}
 -keep class org.json.**{*;}
 -keep class com.alibaba.fastjson.** {*;}
+-keep class com.ciba.**{ *; }
 ```
 
 #### 2.7 常见错误码

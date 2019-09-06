@@ -4,7 +4,7 @@ android {
     compileSdkVersion 28
     buildToolsVersion "29.0.1"
     defaultConfig {
-        applicationId "com.ecook.loginsdkdemo"
+        applicationId '申请的appid对应的包名'
         minSdkVersion 19
         targetSdkVersion 28
         versionCode 1
@@ -12,10 +12,26 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        // 申请的appid对应的jks
+        release {
+            keyAlias '[填写]'
+            keyPassword '[填写]'
+            storeFile file('[填写]')
+            storePassword '[填写]'
+        }
+    }
+
+
     buildTypes {
+        debug {
+            signingConfig signingConfigs.release
+        }
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 
