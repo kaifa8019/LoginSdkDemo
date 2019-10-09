@@ -1,14 +1,18 @@
 * [1. SDK接入流程](#1-sdk接入流程)
   * [1.1 添加SDK至项目](#11-添加SDK至项目)
   * [1.2 权限申请](#12-权限申请)
-* [2. SDK使用](#2-sdk使用)
+* [2. 一键登录功能](#2-一键登录功能)
   * [2.1 SDK初始化](#21-sdk初始化)
   * [2.2 一键登录](#22-一键登录)
   * [2.3 自定义授权界面的UI属性](#23-自定义授权界面的ui属性)
   * [2.4 添加自定义登录方式](#24-添加自定义登录方式)
   * [2.5 api](#25-api)
-  * [2.6 混淆keep规则](#26-混淆keep规则)
-  * [2.7 常见错误码](#27-常见错误码)
+* [3. 本机号码验证功能](#3-本机号码验证功能)
+  * [3.1 SDK初始化](#31-SDK初始化)
+  * [3.2 本机号码验证](#32-本机号码验证)
+  * [3.3 api](#33-api)
+* [4 混淆keep规则](#4-混淆keep规则)
+* [5 常见错误码](#5-常见错误码)
 
 
 
@@ -73,11 +77,11 @@ dependencies {
 
 <font color="#ff0000"> 注：确保以上权限正常申请，否则无法使用一键登录</font>
 
-### 2. SDK使用
+### 2. 一键登录功能
 
 #### 2.1 SDK初始化
 
-SDK只需在未登录前初始化，所以调用前需判断用户是否登录，避免频繁预取号
+SDK只需在未登录前初始化，所以调用前需判断用户是否登录，避免频繁预取号，建议在Activity或者Fragment的onCreate中初始化。
 
 ```java
 YuYanOneKeyLoginSDK.init(this, "申请的appid", new SDKInitResultCallback() {
@@ -99,7 +103,7 @@ YuYanOneKeyLoginSDK.init(this, "申请的appid", new SDKInitResultCallback() {
 在初始化成功后，便可调用一键登录方法。第一个参数为获取凭证的超时时间，单位ms。
 
 ```java
-mOneKeyLogin.getLoginToken(5000, new OnTokenResultCallback() {
+mOneKeyLogin.getLoginToken(5000, new OnOneKeyLoginCallback() {
     @Override
     public void onShowAuthPageSuccess() {
         // 显示授权界面成功
@@ -113,6 +117,11 @@ mOneKeyLogin.getLoginToken(5000, new OnTokenResultCallback() {
     @Override
     public void onTokenFailed(String error) {
         // 获取token失败
+    }
+  
+  	@Override
+    public void onCancel() {
+    		//取消登录
     }
 });
 ```
@@ -587,7 +596,7 @@ public class YuYanOneKeyLogin {
      * @param timeout  超时时间
      * @param callback
      */
-    void getLoginToken(int timeout, OnTokenResultCallback callback);
+    void getLoginToken(int timeout, OnOneKeyLoginCallback callback);
 
 
     /**
@@ -622,10 +631,96 @@ public class YuYanOneKeyLogin {
      */
     void addAuthCustomViewConfig(String name, AuthCustomViewConfig config);
     
+    /**
+     * 退出后销毁
+     */
+    void onDestroy();
 }
 ```
 
-#### 2.6 混淆keep规则
+### 3. 本机号码验证功能
+
+#### 3.1 SDK初始化
+
+建议在Activity或者Fragment的onCreate中初始化
+
+```java
+YuYanOneKeyLoginSDK.initMobileAuth(this, "申请的appid", new MobileAuthSDKInitResultCallback() {
+            @Override
+            public void onSuccess(YuYanMobileAuth mobileAuth) {
+               //初始化成功
+            }
+
+            @Override
+            public void onFailed(String error) {
+               //初始化异常
+            }
+        });
+```
+
+#### 3.2 本机号码验证
+
+```java
+ mMobileAuthLogin.getAuthToken(phone, 5000, new OnTokenResultCallback() {
+
+   @Override
+   public void onTokenSuccess(String token) {
+     	//获取token成功，上传至开发者服务端
+   }
+
+   @Override
+   public void onTokenFailed(String error) {
+     // 获取token失败
+   }
+ });
+```
+
+#### 3.3 api
+
+YuYanOneKeyLoginSDK: 初始化
+
+```java
+public class YuYanOneKeyLoginSDK {
+    /**
+     * 手机号码验证 SDK初始化接口
+     *
+     * @param context
+     * @param appId    分配的应用id
+     * @param
+     * @param callback
+     */
+    void initMobileAuth(Context context, String appId, MobileAuthSDKInitResultCallback callback);
+}
+```
+
+YuYanMobileAuth 本机号码验证
+
+```java
+public class YuYanMobileAuth {
+    /**
+     * 手机号码校验
+     *
+     * @param mobile   待验证手机号
+     * @param timeout  超时时间，单位ms
+     * @param callback 回调
+     */
+    void getAuthToken(@NonNull String mobile, int timeout, OnTokenResultCallback callback);
+
+    /**
+     * 设置SDK是否debug模式运行
+     *
+     * @param isDebug true则输出关键步骤运行日志
+     */
+    void setDebugMode(boolean isDebug);
+
+    /**
+     * 退出后销毁
+     */
+    void onDestroy();
+}
+```
+
+### 4. 混淆keep规则
 
 ```java
 -keep class cn.com.chinatelecom.gateway.lib.** {*;}
@@ -638,7 +733,7 @@ public class YuYanOneKeyLogin {
 -keep class com.ciba.**{ *; }
 ```
 
-#### 2.7 常见错误码
+### 5. 常见错误码
 
 | 错误码 |          描述          |                   建议                   |
 | :----: | :--------------------: | :--------------------------------------: |
