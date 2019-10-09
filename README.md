@@ -731,6 +731,10 @@ public class YuYanMobileAuth {
 -keep class org.json.**{*;}
 -keep class com.alibaba.fastjson.** {*;}
 -keep class com.ciba.**{ *; }
+-keep class com.admobile.onekeylogin.support.YuYanOneKeyLoginSDK {*;}
+-keep class com.admobile.onekeylogin.support.JNICore {*;}
+-keep class com.admobile.onekeylogin.support.ui.** {*;}
+-keep class com.admobile.onekeylogin.support.base.** {*;}
 ```
 
 ### 5. 常见错误码
