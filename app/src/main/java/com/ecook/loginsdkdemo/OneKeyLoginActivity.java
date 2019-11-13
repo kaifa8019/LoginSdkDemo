@@ -209,6 +209,15 @@ public class OneKeyLoginActivity extends AppCompatActivity {
                 LogUtils.d(TAG, "onTokenSuccess " + token);
                 mTvToken.setText(token);
                 show("token获取成功");
+
+                //token获取成功后需要开发者手动调用finishAuthPage方法关闭授权页
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //该方法需要在主线程中调用
+                        mOneKeyLogin.finishAuthPage();
+                    }
+                });
             }
 
             @Override

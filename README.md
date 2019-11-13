@@ -100,7 +100,7 @@ YuYanOneKeyLoginSDK.init(this, "申请的appid", new SDKInitResultCallback() {
 
 #### 2.2 一键登录
 
-在初始化成功后，便可调用一键登录方法。第一个参数为获取凭证的超时时间，单位ms。
+在初始化成功后，便可调用一键登录方法。第一个参数为获取凭证的超时时间，单位ms。注意获取token成功后，需要开发者手动调用finishAuthPage方法关闭授权页。finishAuthPage方法必须在主线程中调用。
 
 ```java
 mOneKeyLogin.getLoginToken(5000, new OnOneKeyLoginCallback() {
@@ -608,7 +608,7 @@ public class YuYanOneKeyLogin {
 
 
     /**
-     * 关闭授权页
+     * 关闭授权页(必须在主线中调用)
      */
     void finishAuthPage();
     
@@ -641,8 +641,6 @@ public class YuYanOneKeyLogin {
 ### 3. 本机号码验证功能
 
 #### 3.1 SDK初始化
-
-建议在Activity或者Fragment的onCreate中初始化
 
 ```java
 YuYanOneKeyLoginSDK.initMobileAuth(this, "申请的appid", new MobileAuthSDKInitResultCallback() {
