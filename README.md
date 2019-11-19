@@ -19,7 +19,7 @@
 
 体验Demo下载
 
-![一键登录](https://www.pgyer.com/app/qrcode/Edhb)
+![一键登录](https://www.pgyer.com/6uXk)
 
 <font color="#ff0000">注意事项：</font>
 
