@@ -19,7 +19,11 @@
 
 体验Demo下载
 
-![一键登录](https://www.pgyer.com/app/qrcode/Edhb)
+![一键登录](https://www.pgyer.com/app/qrcode/6uXk?sign=oSGF7ra2U5zuvoTH3nJ78Bh%252B4Xhue%252BHfcegz1Xa6UM1iJSSvCfWYt3%252FGYi9fJ6X8&auSign=)
+
+安装密码:  0000
+
+若二维码失效则点击链接 [下载链接 ](https://www.pgyer.com/6uXk)
 
 <font color="#ff0000">注意事项：</font>
 
