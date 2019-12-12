@@ -4,7 +4,7 @@ android {
     compileSdkVersion 28
     buildToolsVersion "29.0.1"
     defaultConfig {
-        applicationId '申请的appid'
+        applicationId '[包名]'
         minSdkVersion 19
         targetSdkVersion 28
         versionCode 1
@@ -58,5 +58,5 @@ dependencies {
     // 艾狄墨墨搏公共组件库(使⽤用艾狄墨墨搏⼴广告SDK时可不不依赖，其余情况必须)
     implementation(name: 'common-release-1.0.4', ext: 'aar')
     // ⼀键登录SDK
-    implementation(name: 'onekeylogin-release-1.1.2', ext: 'aar')
+    implementation(name: 'onekeylogin-release-1.2.0', ext: 'aar')
 }

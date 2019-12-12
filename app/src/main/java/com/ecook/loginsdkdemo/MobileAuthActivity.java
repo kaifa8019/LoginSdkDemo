@@ -51,7 +51,7 @@ public class MobileAuthActivity extends AppCompatActivity {
      * 初始化手机号校验SDK
      */
     private void initMobileAuthSDK() {
-        YuYanOneKeyLoginSDK.initMobileAuth(this, "申请的appid", new MobileAuthSDKInitResultCallback() {
+        YuYanOneKeyLoginSDK.initMobileAuth(this, "申请的应用id", new MobileAuthSDKInitResultCallback() {
             @Override
             public void onSuccess(YuYanMobileAuth mobileAuth) {
                 mMobileAuthLogin = mobileAuth;
