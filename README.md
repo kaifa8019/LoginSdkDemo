@@ -14,7 +14,7 @@
     * [3.2 本机号码验证](#32-本机号码验证)
     * [3.3 api](#33-api)
  * [4. 混淆keep规则](#4-混淆keep规则)
- * [5.若开启资源混淆，需要配置whiteList](#5若开启资源混淆需要配置whitelist)
+ * [5. 若开启资源混淆，需要配置whiteList](#5若开启资源混淆需要配置whitelist)
  * [6. 常见错误码](#6-常见错误码)
  * [7. 授权页点击事件响应码](#7-授权页点击事件响应码)
 
@@ -64,7 +64,8 @@ android {
 
 dependencies {
  	....
-
+    //v7版本26以上
+		implementation 'com.android.support:appcompat-v7:26.0.0'
     // json解析库(必须)
     implementation 'com.alibaba:fastjson:1.2.32'
     // 艾狄墨搏公共组件库(使用艾狄墨搏广告SDK时可不依赖，其余情况必须)
@@ -173,7 +174,7 @@ public void setAuthUIConfig(AuthPageUiConfig config)
 ```java
 /**********************授权页*******************************/
  		
-		/**
+	  /**
      * 设置授权页背景图
      * drawable资源的目录，不需要加后缀
      *
@@ -185,7 +186,7 @@ public void setAuthUIConfig(AuthPageUiConfig config)
     /**
      * 授权页进场时动画
      *
-     * @param inAnim  进场界面动画
+     * @param inAnim  进场界面动画 动画xml文件的名称，不带后缀
      * @param outAnim 出场界面动画
      * @return
      */
@@ -1068,7 +1069,7 @@ public class YuYanMobileAuth {
 -keep class com.admobile.onekeylogin.support.base.** {*;}
 ```
 
-### 5.若开启资源混淆，需要配置whiteList
+### 5. 若开启资源混淆，需要配置whiteList
 
 ```html
 "R.drawable.authsdk*",
