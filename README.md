@@ -64,14 +64,14 @@ android {
 
 dependencies {
  	....
-    //v7版本26以上
-		implementation 'com.android.support:appcompat-v7:26.0.0'
-    // json解析库(必须)
-    implementation 'com.alibaba:fastjson:1.2.32'
-    // 艾狄墨搏公共组件库(使用艾狄墨搏广告SDK时可不依赖，其余情况必须)
-    implementation(name: 'common-release', ext: 'aar')
-    // 一键登录SDK
-    implementation(name: 'onekeylogin-release', ext: 'aar')
+  //v7版本26以上
+  implementation 'com.android.support:appcompat-v7:26.0.0'
+  // json解析库(必须)
+  implementation 'com.alibaba:fastjson:1.2.32'
+  // 艾狄墨搏公共组件库(使用艾狄墨搏广告SDK时可不依赖，其余情况必须)
+  implementation(name: 'common-release-[版本号]', ext: 'aar')
+  // 一键登录SDK
+  implementation(name: 'onekeylogin-release-[版本号]', ext: 'aar')
 }
 
 ```
