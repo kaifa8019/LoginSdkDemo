@@ -40,6 +40,8 @@
 
 | 版本号 | 更新说明                                                     | 更新时间   |
 | :----- | :----------------------------------------------------------- | :--------- |
+| v1.2.3 | 1. 升级common库依赖版本<br>2. 修复bug，提升稳定性<br>3. 更新混淆规则 | 2020.07.30 |
+| v1.2.1 | 1. 升级common库依赖版本以及oaid库依赖版本<br/>2. 修复bug     | 2020.04.01 |
 | v1.2.0 | 1. 新增授权界面UI定制方法（状态栏，隐私栏等等）<br>2. 新增弹框授权页模式<br>3. android.permission.READ_PHONE_STATE改为可选权限<br>4. 修复bug | 2019.12.12 |
 | v1.1.2 | 1. 提升SDK的安全性，稳定性<br>2. 增加错误信息上报<br>3. 修复bug<br>4. 更新公共基础库 | 2019.11.19 |
 
@@ -48,6 +50,21 @@
 #### 1.1 添加SDK至项目
 
 接入环境： AndroidStudio
+
+在项目根build.gradle中添加maven仓库地址
+
+```groovy
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        maven {
+            url "http://101.37.191.20:9091/repository/maven-releases/"
+        }
+    }
+}
+
+```
 
 将Demo中libs目录下的两个aar文件拷贝至工程的libs目录下，然后在app的build.gradle进行以下配置
 
@@ -69,9 +86,9 @@ dependencies {
   // json解析库(必须)
   implementation 'com.alibaba:fastjson:1.2.32'
   // 艾狄墨搏公共组件库(使用艾狄墨搏广告SDK时可不依赖，其余情况必须)
-  implementation(name: 'common-release-[版本号]', ext: 'aar')
+  implementation 'com.admobile:common:1.2.0'
   // 一键登录SDK
-  implementation(name: 'onekeylogin-release-[版本号]', ext: 'aar')
+  implementation 'com.admobile:onekeylogin:1.2.3'
 }
 
 ```
